@@ -17,9 +17,9 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H your-ec2-public-ip >> ~/.ssh/known_hosts
+        ssh-keyscan -H 44.201.162.26 >> ~/.ssh/known_hosts
 
     - name: Deploy to EC2
       run: |
-        scp app.py model.pkl scaler.pkl ubuntu@your-ec2-public-ip:/home/ubuntu/
-        ssh ubuntu@your-ec2-public-ip 'pkill -f app.py || true && nohup python3 /home/ubuntu/app.py > output.log 2>&1 &'
+        scp app.py model.pkl scaler.pkl ubuntu@44.201.162.26:/home/ubuntu/
+        ssh ubuntu@44.201.162.26 'pkill -f app.py || true && nohup python3 /home/ubuntu/app.py > output.log 2>&1 &'
